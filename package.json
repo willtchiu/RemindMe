@@ -1,0 +1,24 @@
+{
+  "name": "remindme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willtchiu/RemindMe.git"
+  },
+  "author": "Will Chiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willtchiu/RemindMe/issues"
+  },
+  "homepage": "https://github.com/willtchiu/RemindMe#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.75.0"
+  }
+}
