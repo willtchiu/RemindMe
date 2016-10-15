@@ -26,8 +26,13 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-        //if there's a message respond to the message
-            sendMessage(event.sender.id, {text: "Do it, you won't"});
+
+            //side-effect remove later
+            if (!kittenMessage(event.sender.id, event.message.text)) {
+
+                //if there's a message respond to the message if no kitten cmd
+                sendMessage(event.sender.id, {text: "Do it, you won't"});
+            }
         }
     }
     res.sendStatus(200);
@@ -51,4 +56,48 @@ function sendMessage(recipientId, message) {
             console.log('Error: ', response.body.error);
         }
     });
+};
+
+function kittenMessage(recipientId, text) {
+    text = text || "";
+    var values = text.split(' ');
+
+    //Checks if the 'kitten' command was called and there are 3 total params
+    if (values.length === 3 && values[0] === 'kitten') {
+        
+        //Checking that width/height are positive
+        if (Number(values[1]) > 0 && Number(values[2]) > 0) {
+            var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/"
+                + Number(values[2]);
+
+            message = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "Kitty4u :3",
+                            "subtitle": "Kittens for dayz",
+                            "image_url": imageUrl,
+                            "buttons": [{
+                                "type": "web_url",
+                                "url": imageUrl,
+                                "title": "Show source"
+                                }, {
+                                "type": "postback",
+                                "title": "I like this kitty",
+                                "payload": "User " + recipientId + " likes kitten " + imageUrl,
+                            }]
+                        }]
+                    }
+                }
+            };
+
+            sendMessage(recipientId, message);
+
+            return true;
+        }
+    }
+
+    return false;
 };
