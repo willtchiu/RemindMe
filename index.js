@@ -31,6 +31,12 @@ app.post('/webhook', function (req, res) {
         }
     }
     res.sendStatus(200);
+}, function (error) {
+    if (error) {
+        console.log("Error: ", error);
+    } else if (response.body.error) {
+        console.log("Error response body error: ", response.body.error); 
+    }
 });   
 
 //general function for sending messages
