@@ -27,7 +27,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
         //if there's a message respond to the message
-            sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+            sendMessage(event.sender.id, {text: "Do it, you won't"});
         }
     }
     res.sendStatus(200);
