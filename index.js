@@ -33,6 +33,8 @@ app.post('/webhook', function (req, res) {
                 //if there's a message respond to the message if no kitten cmd
                 sendMessage(event.sender.id, {text: "Do it, you won't"});
             }
+        } else if (event.postback) {
+            console.log("Postback received: " + JSON.stringify(event.postback));
         }
     }
     res.sendStatus(200);
