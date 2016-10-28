@@ -33,9 +33,7 @@ app.post('/webhook', function (req, res) {
             } else if (kittenMessage(event.sender.id, event.message.text)) {
                 
             } else {
-                sendMessage(event.sender.id, {text: "Current supported commands
-                    are:\n\'remind [min] [action]\'\n
-                    \'kitten [width] [height]\'"});
+                sendMessage(event.sender.id, {text: "Current supported commands are:\n\'remind [min] [action]\'\n\'kitten [width] [height]\'"});
             }
 
         //server should handle event when user clicks button
