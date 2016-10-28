@@ -44,7 +44,7 @@ app.post('/webhook', function (req, res) {
             */
 
             if (!kittenMessage(event.sender.id, event.message.text)) {
-                var msg = "Hi " + {{user_first_name}} + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
+                var msg = "Hi " + event.sender.id + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
                 sendMessage(event.sender.id, {text: String(msg)});
             }
             
