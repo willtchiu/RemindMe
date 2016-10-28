@@ -30,12 +30,8 @@ app.post('/webhook', function (req, res) {
             //TODO add async worker process (Heroku can't deal with timeouts)
             //side-effect remove later
             
-            if (delayedMessage(event.sender.id, event.message.text)) {
-                console.log("delay");
+            if (!delayedMessage(event.sender.id, event.message.text)) {
                 //works for reminders < 30 sec (heroku timeout)
-            } else if (kittenMessage(event.sender.id, event.message.text)) {
-                console.log("kitten");
-            } else {
                 console.log("no cmd");
                 var msg = "Hi " + event.sender.id + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
                 sendMessage(event.sender.id, {text: String(msg)});
