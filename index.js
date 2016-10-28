@@ -81,6 +81,7 @@ function delayedMessage(recipientId, text) {
     var values = text.split(' ');
     
     console.log("values: " + values.length);
+    console.log("value[0]: " + values[0]);
     //Check for remind command format
     if ((values.length > 2) && (values[0] === 'remind')) {
         if (Number(values[1]) > 0) {
