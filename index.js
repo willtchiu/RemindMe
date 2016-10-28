@@ -39,6 +39,11 @@ app.post('/webhook', function (req, res) {
     }
     res.sendStatus(200);
 });   
+app.get('/cmdmanager', function (req, res) {
+sendMessage()
+}
+
+
 
 //general function for sending messages
 function sendMessage(recipientId, message) {
