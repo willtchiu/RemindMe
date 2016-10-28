@@ -29,24 +29,23 @@ app.post('/webhook', function (req, res) {
             
             //TODO add async worker process (Heroku can't deal with timeouts)
             //side-effect remove later
-            /*
+            
             if (delayedMessage(event.sender.id, event.message.text)) {
-
+                //works for reminders < 30 sec (heroku timeout)
             } else if (kittenMessage(event.sender.id, event.message.text)) {
-                
+            
             } else {
-                sendMessage(event.sender.id, {text: "Do it, you won't"});
-
-                /*
-                sendMessage(event.sender.id, {text: "Current supported commands are:\n\'remind [min] [action]\'\n\'kitten [width] [height]\'"});
-                
-            }
-            */
-
-            if (!kittenMessage(event.sender.id, event.message.text)) {
-                var msg = "Hi " + {{user_first_name}} + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
+                var msg = "Hi " + event.sender.id + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
                 sendMessage(event.sender.id, {text: String(msg)});
             }
+            
+            
+            /*
+            if (!kittenMessage(event.sender.id, event.message.text)) {
+                var msg = "Hi " + event.sender.id + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
+                sendMessage(event.sender.id, {text: String(msg)});
+            }
+            */
             
 
         //server should handle event when user clicks button
