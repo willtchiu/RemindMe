@@ -1,5 +1,5 @@
 # RemindMe
-Your personal fb messenger notification slave
+Your personal fb messenger reminder slave
 
 ## TODO
 Buggy implementation of remind command: (busy-wait sucks)
