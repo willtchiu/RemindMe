@@ -79,9 +79,10 @@ function sendMessage(recipientId, message) {
 function delayedMessage(recipientId, text) {
     text = text || "";
     var values = text.split(' ');
-
+    
+    console.log("values: " + values.length);
     //Check for remind command format
-    if (values.length > 2 && values[0] === 'remind') {
+    if ((values.length > 2) && (values[0] === 'remind')) {
         if (Number(values[1]) > 0) {
             //busy waiting for now
             var waitUntil = Number(Date.now() + values[1]*60000);
@@ -98,6 +99,8 @@ function delayedMessage(recipientId, text) {
             return true;
         } 
     }
+
+    console.log("reached false");
 
     return false;
 }
