@@ -28,12 +28,20 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
 
             //side-effect remove later
-            if (!kittenMessage(event.sender.id, event.message.text)) {
+            if (delayedMessage(event.sender.id, event.message.text)) {
 
-                //if there's a message respond to the message if no kitten cmd
-                sendMessage(event.sender.id, {text: "Do it, you won't"});
+            } else if (kittenMessage(event.sender.id, event.message.text)) {
+                
+            } else {
+                sendMessage(event.sender.id, {text: "Current supported commands
+                    are:\n\'remind [min] [action]\'\n
+                    \'kitten [width] [height]\'"});
             }
+
+        //server should handle event when user clicks button
         } else if (event.postback) {
+
+            //output to console just to show postback call
             console.log("Postback received: " + JSON.stringify(event.postback));
         }
     }
@@ -59,6 +67,32 @@ function sendMessage(recipientId, message) {
         }
     });
 };
+
+function delayedMessage(recipientId, text) {
+    text = text || "";
+    var values = text.split(' ');
+
+    //Check for remind command format
+    if (values.length > 2 && values[0] === 'remind') {
+        if (Number(values[1]) > 0) {
+            //busy waiting for now
+            var waitUntil = Number(Date.now() + values[1]*60000);
+            while (waitUntil > Date.now()) {
+                //busy wait TODO fork child/use threads
+            }
+            var toRemind = "";
+            for (i = 2; i < values.length; i++) {
+                toRemind += values[i] + ' ';
+            }
+            
+            sendMessage(recipientId, {text: String(toRemind)});
+
+            return true;
+        } 
+    }
+
+    return false;
+}
 
 function kittenMessage(recipientId, text) {
     text = text || "";
@@ -86,6 +120,8 @@ function kittenMessage(recipientId, text) {
                                 "url": imageUrl,
                                 "title": "Show source"
                                 }, {
+
+                                //on button click, returned payload to server
                                 "type": "postback",
                                 "title": "I like this kitty",
                                 "payload": "User " + recipientId + " likes kitten " + imageUrl,
