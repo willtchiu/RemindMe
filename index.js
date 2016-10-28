@@ -26,8 +26,10 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-
+            
+            //TODO add async worker process (Heroku can't deal with timeouts)
             //side-effect remove later
+            /*
             if (delayedMessage(event.sender.id, event.message.text)) {
 
             } else if (kittenMessage(event.sender.id, event.message.text)) {
@@ -37,8 +39,15 @@ app.post('/webhook', function (req, res) {
 
                 /*
                 sendMessage(event.sender.id, {text: "Current supported commands are:\n\'remind [min] [action]\'\n\'kitten [width] [height]\'"});
-                */
+                
             }
+            */
+
+            if (!kittenMessage(event.sender.id, event.message.text)) {
+                var msg = "Hi " + event.sender.id + "," + '\n' + "Commands:\n" + "[WIP]remind\n" + "kitten [width] [height]";
+                sendMessage(event.sender.id, {text: String(msg)});
+            }
+            
 
         //server should handle event when user clicks button
         } else if (event.postback) {
